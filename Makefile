@@ -1,14 +1,14 @@
 RAM=1G
-QEMU=qemu-system-i386 -m $(RAM)
+QEMU=e:\tools\qemu\qemu-system-x86_64 -m $(RAM)
 KERNEL=-kernel mel.elf
 CCFLAGS= -g -c -w -m32 -fno-stack-protector -fno-pie -masm=intel -O0 -I include
 LINKER=linker.ld
 LDFLAGS= -z noexecstack -m elf_i386 -T $(LINKER)
 ASFLAGS= --32
-
+find = /e/msys64/usr/bin/find
 SRC_BOOT = boot/boot.s
-SRC_C = $(shell find -name "*.c")
-SRC_S = $(shell find -name "*.s" -not -name "boot.s")
+SRC_C = $(shell $(find) -name "*.c")
+SRC_S = $(shell $(find) -name "*.s" -not -name "boot.s")
 
 OBJ_BOOT = bin/boot.elf
 OBJ_C = $(SRC_C:%.c=bin/%.elf)
