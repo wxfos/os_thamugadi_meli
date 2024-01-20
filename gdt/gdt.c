@@ -13,32 +13,32 @@ struct GDT gdt[6];
 struct GDT_PTR gdt_ptr;
 
 extern void load_gdt(struct GDT*);
-struct TSS tss; 
+struct TSS tss = {0}; 
 
 void init_gdt()
 {
-        FILL_GDT_ENTRY(0,0,0,0,0,0,0);
+    memset(&tss, 0, 104);
+    tss.ss0  = 0x10;
+    tss.esp0 = KERNELSTACK;
+    tss.iopb = 104;
 
-        FILL_GDT_ENTRY(1,0xFFFF,0,0,0b10011010,0b11001111,0); //ring0 code
-        FILL_GDT_ENTRY(2,0xFFFF,0,0,0b10010010,0b11001111,0); //ring0 data
+    FILL_GDT_ENTRY(0,0,0,0,0,0,0);
 
-        FILL_GDT_ENTRY(3,0xFFFF,0,0,0b11111010,0b11001111,0); //ring3 code
-        FILL_GDT_ENTRY(4,0xFFFF,0,0,0b11110010,0b11001111,0); //ring3 data
-	
-	memset(&tss, 0, 104);
-	tss.ss0  = 0x10;
-        tss.esp0 = KERNELSTACK;
-        tss.iopb = 104;
+    FILL_GDT_ENTRY(1,0xFFFF,0,0,0b10011010,0b11001111,0); //ring0 code
+    FILL_GDT_ENTRY(2,0xFFFF,0,0,0b10010010,0b11001111,0); //ring0 data
 
-        FILL_GDT_ENTRY(5,104,(unsigned int)(&tss)&0xFFFF, ((unsigned int)(&tss)&0x00FF0000)>>16,0xE9,0x00,((unsigned int)(&tss)&0xFF000000)>>24); //tss
+    FILL_GDT_ENTRY(3,0xFFFF,0,0,0b11111010,0b11001111,0); //ring3 code
+    FILL_GDT_ENTRY(4,0xFFFF,0,0,0b11110010,0b11001111,0); //ring3 data
 
-        gdt_ptr.gdt_size = sizeof(gdt) - 1;
-        gdt_ptr.gdt_addr = (struct GDT*)&gdt;
-	load_gdt((struct GDT*)&gdt_ptr);
-        kprint("Loaded GDT.\n", 15);
+    FILL_GDT_ENTRY(5,104,(unsigned int)(&tss)&0xFFFF, ((unsigned int)(&tss)&0x00FF0000)>>16,0xE9,0x00,((unsigned int)(&tss)&0xFF000000)>>24); //tss
 
-	asm("mov ax, 0x2b");
-	asm("ltr ax");
+    gdt_ptr.gdt_size = sizeof(gdt) - 1;
+    gdt_ptr.gdt_addr = (struct GDT*)&gdt;
+    load_gdt((struct GDT*)&gdt_ptr);
+    kprint("Loaded GDT.\n", 15);
 
-	kprint("Loaded TSS.\n", 15);
+    asm("mov ax, 0x2b");
+    asm("ltr ax");
+
+    kprint("Loaded TSS.\n", 15);
 }

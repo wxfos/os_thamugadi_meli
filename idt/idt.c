@@ -124,26 +124,26 @@ void init_idt()
 
 	FILL_IDT_ENTRY(0x20,  (unsigned int)&irq0,  0x8, 0x8E);
 	FILL_IDT_ENTRY(0x21,  (unsigned int)&irq1,  0x8, 0x8E);
-        FILL_IDT_ENTRY(0x22,  (unsigned int)&irq2,  0x8, 0x8E);
-        FILL_IDT_ENTRY(0x23,  (unsigned int)&irq3,  0x8, 0x8E);
-        FILL_IDT_ENTRY(0x24,  (unsigned int)&irq4,  0x8, 0x8E);
-        FILL_IDT_ENTRY(0x25,  (unsigned int)&irq5,  0x8, 0x8E);
-        FILL_IDT_ENTRY(0x26,  (unsigned int)&irq6,  0x8, 0x8E);
-        FILL_IDT_ENTRY(0x27,  (unsigned int)&irq7,  0x8, 0x8E);
-        FILL_IDT_ENTRY(0x28,  (unsigned int)&irq8,  0x8, 0x8E);
-        FILL_IDT_ENTRY(0x29,  (unsigned int)&irq9,  0x8, 0x8E);
-        FILL_IDT_ENTRY(0x2A,  (unsigned int)&irq10, 0x8, 0x8E);
-        FILL_IDT_ENTRY(0x2B,  (unsigned int)&irq11, 0x8, 0x8E);
-        FILL_IDT_ENTRY(0x2C,  (unsigned int)&irq12, 0x8, 0x8E);
-        FILL_IDT_ENTRY(0x2D,  (unsigned int)&irq13, 0x8, 0x8E);
-        FILL_IDT_ENTRY(0x2E,  (unsigned int)&irq14, 0x8, 0x8E);
-        FILL_IDT_ENTRY(0x2F,  (unsigned int)&irq15, 0x8, 0x8E);
+	FILL_IDT_ENTRY(0x22,  (unsigned int)&irq2,  0x8, 0x8E);
+	FILL_IDT_ENTRY(0x23,  (unsigned int)&irq3,  0x8, 0x8E);
+	FILL_IDT_ENTRY(0x24,  (unsigned int)&irq4,  0x8, 0x8E);
+	FILL_IDT_ENTRY(0x25,  (unsigned int)&irq5,  0x8, 0x8E);
+	FILL_IDT_ENTRY(0x26,  (unsigned int)&irq6,  0x8, 0x8E);
+	FILL_IDT_ENTRY(0x27,  (unsigned int)&irq7,  0x8, 0x8E);
+	FILL_IDT_ENTRY(0x28,  (unsigned int)&irq8,  0x8, 0x8E);
+	FILL_IDT_ENTRY(0x29,  (unsigned int)&irq9,  0x8, 0x8E);
+	FILL_IDT_ENTRY(0x2A,  (unsigned int)&irq10, 0x8, 0x8E);
+	FILL_IDT_ENTRY(0x2B,  (unsigned int)&irq11, 0x8, 0x8E);
+	FILL_IDT_ENTRY(0x2C,  (unsigned int)&irq12, 0x8, 0x8E);
+	FILL_IDT_ENTRY(0x2D,  (unsigned int)&irq13, 0x8, 0x8E);
+	FILL_IDT_ENTRY(0x2E,  (unsigned int)&irq14, 0x8, 0x8E);
+	FILL_IDT_ENTRY(0x2F,  (unsigned int)&irq15, 0x8, 0x8E);
 
-        FILL_IDT_ENTRY(0x30,  (unsigned int)&syscall_handler, 0x8, 0xEE);
+	FILL_IDT_ENTRY(0x30,  (unsigned int)&syscall_handler, 0x8, 0xEE);
 
-        idt_ptr.idt_size = sizeof(idt) - 1;
-        idt_ptr.idt_addr = (struct IDT*)&idt;
-        load_idt((struct IDT*)&idt_ptr);
-        kprint("Loaded IDT.\n", 15);
+	idt_ptr.idt_size = sizeof(idt) - 1;
+	idt_ptr.idt_addr = (struct IDT*)&idt;
+	load_idt((struct IDT*)&idt_ptr);
+	kprint("Loaded IDT.\n", 15);
 
 }

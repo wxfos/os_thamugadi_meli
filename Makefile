@@ -1,4 +1,6 @@
 RAM=1G
+CC=\msys64\mingw64\bin\gcc
+LD=\msys64\mingw64\bin\ld
 QEMU=e:\tools\qemu\qemu-system-x86_64 -m $(RAM)
 KERNEL=-kernel mel.elf
 CCFLAGS= -g -c -w -m32 -fno-stack-protector -fno-pie -masm=intel -O0 -I include
@@ -26,7 +28,7 @@ dirs :
 	@mkdir -p $(dir $(OBJS))
 
 bin/%.elf: %.c
-	@gcc $(CCFLAGS) $< -o $@
+	@$(CC) $(CCFLAGS) $< -o $@
 
 bin/%_s.elf : %.s
 	@as $(ASFLAGS) $< -o $@

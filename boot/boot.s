@@ -7,5 +7,6 @@
 .long 0x1badb002
 .long 0x00000000
 .long -0x1badb002
+
 _start:
-jmp main
+    jmp main
