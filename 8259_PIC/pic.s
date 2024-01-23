@@ -40,7 +40,7 @@ end_interrupt:
     cmp byte ptr [esp+4], 8
     jle ms
     out 0xA0, al
-    ms:
+ms:
     out 0x20, al 
     leave
     ret
