@@ -6,7 +6,7 @@ void user_test(void) __attribute__((naked));
 void func(void) __attribute__((section(".ring3text")));
 void u_reverse(char* addr) __attribute__((section(".ring3text")));
 void u_itoa(int i, char* addr) __attribute__((section(".ring3text")));
-int u_strcmp(char *str1, char *str2); __attribute__((section(".ring3text")));
+int u_strcmp(char *str1, char *str2) __attribute__((section(".ring3text")));
 
 char strings[0x100] __attribute__((section(".ring3data"))) = "New process, PID \0meli $ \0help\0Nothing yet.\n\0";;
 void user_test(void)
